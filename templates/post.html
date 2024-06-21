@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NITJ-CIVIL</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Compressive Strength Prediction</h1>
+        <h2>{{prediction_text}}</h2>
+        <form id="predictor-form" action='/predict' method="POST">
+            <div class="form-group">
+                <label for="model">Model:</label>
+                <select id="model" name="model" required>
+                    <option select>Select Model</option>
+                    <option value="1">K Neighbors</option>
+                    <option value="2">Random Forest</option>
+                    <option value="3">Gradient Boosting</option>
+                    <option value="4">Decision Tree</option>
+                    <option value="5">Multilayer Perceptron</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="cement">Cement (kg/m3):</label>
+                <input type="text" id="cement" name="cement" required>
+            </div>
+            <div class="form-group">
+                <label for="nfa">Natural Fine Aggregate (kg/m3):</label>
+                <input type="text" id="nfa" name="nfa" required>
+            </div>
+            <div class="form-group">
+                <label for="nca">Natural Coarse Aggregate (kg/m3):</label>
+                <input type="text" id="nca" name="nca" required>
+            </div>
+            <div class="form-group">
+                <label for="rsa">Rice Straw Ash (kg/m3):</label>
+                <input type="text" id="rsa" name="rsa" required>
+            </div>
+            <div class="form-group">
+                <label for="sp">Superplasticizer (kg/m3):</label>
+                <input type="text" id="sp" name="sp" required>
+            </div>
+            <div class="form-group">
+                <label for="w">Water (kg/m3):</label>
+                <input type="text" id="w" name="w" required>
+            </div>
+            <div class="form-group">
+                <label for="curing-days">Curing Days:</label>
+                <input type="text" id="curing-days" name="curing-days" required>
+            </div>
+            <button type="submit">Predict</button>
+        </form>
+    </div>
+</body>
+</html>
