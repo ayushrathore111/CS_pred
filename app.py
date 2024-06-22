@@ -52,7 +52,7 @@ def predict():
         final_features = [np.array(int_features)]
         prediction = mlp_loaded.predict(final_features)
         
-    elif mo==6:
+    else:
         int_features = int_features[1:]
         final_features = np.array(int_features)
         prediction = xgb_loaded.predict(final_features.reshape(1,-1))
@@ -60,7 +60,7 @@ def predict():
     output = round(prediction[0], 2)
     print(output)
     
-    return render_template('post.html',prediction_text= "The predicted Compressive Strength of Rice Straw ash Based sample is {}MPa".format(output))
+    return render_template('post.html',prediction_text= "The predicted Compressive Strength of Rice Straw ash Based sample is {:.2f}MPa".format(output))
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
