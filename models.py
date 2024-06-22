@@ -14,7 +14,7 @@ data = data.dropna()
 # Separate the data into input X and output Y
 X = data.iloc[:, :-1]
 Y = data.iloc[:, -1]
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.20, random_state=0)
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.20, random_state=42)
 
 from xgboost import XGBRegressor
 
@@ -76,10 +76,10 @@ print("MLP: ",r2_mlp)
 import joblib
 
 joblib.dump(model,'./static/XGB.joblib')
-joblib.dump(knn_model,'./static/KNN.joblib')
-joblib.dump(MLP,'./static/MLP.joblib')
-joblib.dump(GBR,'./static/GBR.joblib')
-joblib.dump(DT,'./static/DTR.joblib')
-joblib.dump(RF,'./static/rf.joblib')
+# joblib.dump(knn_model,'./static/KNN.joblib')
+# joblib.dump(MLP,'./static/MLP.joblib')
+# joblib.dump(GBR,'./static/GBR.joblib')
+# joblib.dump(DT,'./static/DTR.joblib')
+# joblib.dump(RF,'./static/rf.joblib')
 
 print("dumped")
