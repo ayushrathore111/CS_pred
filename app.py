@@ -12,6 +12,7 @@ dtr_loaded = joblib.load('./static/Decision_Tree.joblib')
 gbr_loaded = joblib.load('./static/Gradient_Boosting.joblib')
 mlp_loaded = joblib.load('./static/MLP.joblib')
 rf_loaded = joblib.load('./static/Random_Forest.joblib')
+xgb_loaded = joblib.load('./static/XGB.joblib')
 
 @app.route('/')
 def home():
@@ -51,10 +52,15 @@ def predict():
         final_features = [np.array(int_features)]
         prediction = mlp_loaded.predict(final_features)
         
+    elif mo==6:
+        int_features = int_features[1:]
+        final_features = np.array(int_features)
+        prediction = xgb_loaded.predict(final_features.reshape(1,-1))
+
     output = round(prediction[0], 2)
     print(output)
     
-    return render_template('post.html',prediction_text= "The predicted Compressive Strength of Rice Straw ash Based sample is {}MPa.".format(output))
+    return render_template('post.html',prediction_text= "The predicted Compressive Strength of Rice Straw ash Based sample is {}MPA".format(output))
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
