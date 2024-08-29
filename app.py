@@ -1,18 +1,24 @@
 import numpy as np
 from flask import Flask, request, jsonify, render_template,redirect
 import joblib
-from sklearn.model_selection import train_test_split
-from xgboost import XGBRegressor
 import warnings
 warnings.filterwarnings('ignore')
 
 app = Flask(__name__)
-knn_loaded = joblib.load('./static/KNN.joblib')
-dtr_loaded = joblib.load('./static/Decision_Tree.joblib')
-gbr_loaded = joblib.load('./static/Gradient_Boosting.joblib')
-mlp_loaded = joblib.load('./static/MLP.joblib')
-rf_loaded = joblib.load('./static/Random_Forest.joblib')
-xgb_loaded = joblib.load('./static/XGB.joblib')
+f_ar = joblib.load('static\model_flexural_AdaBoost.joblib')
+f_en = joblib.load('static\model_flexural_ElasticNet.joblib')
+f_etr = joblib.load('static\model_flexural_Extra Trees.joblib')
+f_hub = joblib.load('static\model_flexural_Huber.joblib')
+f_lt = joblib.load('static\model_flexural_LightGBM.joblib')
+f_r = joblib.load('static\model_flexural_Ridge.joblib')
+s_ar = joblib.load('static\model_split_tensile_AdaBoost.joblib')
+s_en = joblib.load('static\model_split_tensile_ElasticNet.joblib')
+s_etr = joblib.load('static\model_split_tensile_Extra Trees.joblib')
+s_hub = joblib.load('static\model_split_tensile_Huber.joblib')
+s_lt = joblib.load('static\model_split_tensile_LightGBM.joblib')
+s_r = joblib.load('static\model_split_tensile_Ridge.joblib')
+
+
 
 @app.route('/')
 def home():
@@ -34,28 +40,53 @@ def predict():
     if mo == 1:
         int_features = int_features[1:]
         final_features = np.array(int_features)
-        prediction = knn_loaded.predict([final_features])
+        prediction = f_ar.predict([final_features])
     elif mo == 2:
         int_features = int_features[1:]
         final_features = [np.array(int_features)]
-        prediction = rf_loaded.predict(final_features)
+        prediction = f_en.predict(final_features)
     elif mo == 3:
         int_features = int_features[1:]
         final_features = [np.array(int_features)]
-        prediction = gbr_loaded.predict(final_features)
+        prediction = f_etr.predict(final_features)
     elif mo == 4:
         int_features = int_features[1:]
         final_features = [np.array(int_features)]
-        prediction = dtr_loaded.predict(final_features)
+        prediction = f_hub.predict(final_features)
     elif mo == 5:
         int_features = int_features[1:]
         final_features = [np.array(int_features)]
-        prediction = mlp_loaded.predict(final_features)
+        prediction = f_lt.predict(final_features)
         
-    else:
+    elif mo==6:
         int_features = int_features[1:]
-        final_features = np.array(int_features)
-        prediction = xgb_loaded.predict(final_features.reshape(1,-1))
+        final_features = [np.array(int_features)]
+        # prediction = f_r.predict(final_features.reshape(1,-1))
+        prediction = f_r.predict(final_features)
+    elif mo==7:
+        int_features = int_features[1:]
+        final_features = [np.array(int_features)]
+        prediction = s_ar.predict(final_features)
+    elif mo==8:
+        int_features = int_features[1:]
+        final_features = [np.array(int_features)]
+        prediction = s_en.predict(final_features)
+    elif mo==9:
+        int_features = int_features[1:]
+        final_features = [np.array(int_features)]
+        prediction = s_etr.predict(final_features)
+    elif mo==10:
+        int_features = int_features[1:]
+        final_features = [np.array(int_features)]
+        prediction = s_hub.predict(final_features)
+    elif mo==11:
+        int_features = int_features[1:]
+        final_features = [np.array(int_features)]
+        prediction = s_lt.predict(final_features)
+    elif mo==12:
+        int_features = int_features[1:]
+        final_features = [np.array(int_features)]
+        prediction = s_r.predict(final_features)
 
     output = round(prediction[0], 2)
     print(output)
