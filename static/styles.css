@@ -16,7 +16,7 @@ button {
 }
 
 body {
-    background: linear-gradient(to right, #e3f388, #d3b7c3);
+    background: #cbbdec;
     display: flex;
     justify-content: center;
     align-items: center;
