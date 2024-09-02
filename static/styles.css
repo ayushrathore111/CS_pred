@@ -37,6 +37,7 @@ body {
     text-align: center;
     margin: auto;
     overflow: hidden;
+    border: solid black 2px;
     /* Ensures content within container is not visible outside */
 }
 

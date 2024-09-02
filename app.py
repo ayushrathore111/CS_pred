@@ -91,7 +91,7 @@ def predict():
     output = round(prediction[0], 2)
     print(output)
     
-    return render_template('post.html',prediction_text= "The predicted Compressive Strength of Rice Straw ash Based sample is {:.2f}MPa".format(output))
+    return render_template('post.html',prediction_text= "The predicted Strength of Rice Straw ash Based sample is {:.2f}MPa".format(output))
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
